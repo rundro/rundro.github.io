@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pocket Capital - Investment Empire Simulator</title>
+    <title>Rundro Apps - Mobile Game Development</title>
     <style>
       :root {
         --primary-color: #2c3e50;
@@ -34,11 +34,39 @@
       header {
         background: var(--primary-color);
         color: white;
-        padding: 4rem 0;
+        padding: 2rem 0;
         text-align: center;
       }
 
-      .hero h1 {
+      .company-header {
+        margin-bottom: 2rem;
+      }
+
+      .company-header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 3rem 0;
+        background: linear-gradient(to bottom, var(--primary-color), #34495e);
+      }
+
+      .hero-content {
+        flex: 1;
+      }
+
+      .app-icon {
+        width: 128px;
+        height: 128px;
+        border-radius: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero h2 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
       }
@@ -95,13 +123,53 @@
         margin-bottom: 2rem;
       }
 
+      .screenshots {
+        padding: 4rem 0;
+      }
+
+      .screenshot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .screenshot {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        cursor: pointer;
+      }
+
+      .screenshot:hover {
+        transform: scale(1.05);
+      }
+
+      .screenshot img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
       .contact {
         padding: 4rem 0;
         text-align: center;
+        background: var(--light-bg);
       }
 
       .contact-info {
         margin-top: 2rem;
+      }
+
+      .social-links {
+        margin-top: 1rem;
+      }
+
+      .social-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin: 0 0.5rem;
       }
 
       footer {
@@ -109,34 +177,87 @@
         color: white;
         text-align: center;
         padding: 2rem 0;
-        margin-top: 2rem;
+      }
+
+      /* Modal for screenshots */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        padding: 2rem;
+        box-sizing: border-box;
+      }
+
+      .modal-content {
+        max-width: 90%;
+        max-height: 90vh;
+        margin: auto;
+        display: block;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
       }
 
       @media (max-width: 768px) {
-        .hero h1 {
+        .hero {
+          flex-direction: column;
+          text-align: center;
+          padding: 2rem 0;
+        }
+
+        .hero h2 {
           font-size: 2rem;
         }
 
         .features-grid {
           grid-template-columns: 1fr;
         }
+
+        .screenshot-grid {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <div class="container hero">
-        <h1>Pocket Capital</h1>
-        <p>
-          Build your financial empire in this engaging investment simulator.
-          Diversify your portfolio across real estate, businesses, and the stock
-          market!
-        </p>
-        <a href="https://apps.apple.com/app/pocket-capital" class="cta-button"
-          >Download on the App Store</a
-        >
+      <div class="container company-header">
+        <h1>Rundro Apps</h1>
+        <p>Crafting Engaging Mobile Experiences</p>
       </div>
     </header>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <img
+            src="PocketCapital/icon.png"
+            alt="Pocket Capital Icon"
+            class="app-icon"
+          />
+          <h2>Pocket Capital</h2>
+          <p>
+            Build your financial empire in this engaging investment simulator.
+            Diversify your portfolio across real estate, businesses, and the
+            stock market!
+          </p>
+          <a href="https://apps.apple.com/app/pocket-capital" class="cta-button"
+            >Download on the App Store</a
+          >
+        </div>
+      </div>
+    </section>
 
     <section class="features">
       <div class="container">
@@ -178,6 +299,35 @@
       </div>
     </section>
 
+    <section class="screenshots">
+      <div class="container">
+        <h2 class="section-title">Game Screenshots</h2>
+        <div class="screenshot-grid">
+          <div class="screenshot">
+            <img
+              src="PocketCapital/real_estate_view.png"
+              alt="Real Estate Management"
+            />
+          </div>
+          <div class="screenshot">
+            <img
+              src="PocketCapital/business_view.png"
+              alt="Business Management"
+            />
+          </div>
+          <div class="screenshot">
+            <img
+              src="PocketCapital/stocks_view.png"
+              alt="Stock Market Trading"
+            />
+          </div>
+          <div class="screenshot">
+            <img src="PocketCapital/profile_view.png" alt="Player Profile" />
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="contact">
       <div class="container">
         <h2 class="section-title">Contact & Support</h2>
@@ -189,7 +339,7 @@
               >support@pocketcapital.com</a
             >
           </p>
-          <p>Follow us on social media for updates and tips:</p>
+          <p>Follow us for updates and tips:</p>
           <div class="social-links">
             <a href="https://twitter.com/pocketcapital">Twitter</a> |
             <a href="https://instagram.com/pocketcapital">Instagram</a>
@@ -200,8 +350,38 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2024 Pocket Capital. All rights reserved.</p>
+        <p>&copy; 2024 Rundro Apps. All rights reserved.</p>
       </div>
     </footer>
+
+    <!-- Modal for screenshot preview -->
+    <div class="modal" id="screenshotModal">
+      <span class="modal-close">&times;</span>
+      <img class="modal-content" id="modalImage" />
+    </div>
+
+    <script>
+      // Screenshot modal functionality
+      const modal = document.getElementById("screenshotModal");
+      const modalImg = document.getElementById("modalImage");
+      const closeBtn = document.getElementsByClassName("modal-close")[0];
+
+      document.querySelectorAll(".screenshot img").forEach((img) => {
+        img.onclick = function () {
+          modal.style.display = "flex";
+          modalImg.src = this.src;
+        };
+      });
+
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
   </body>
 </html>
