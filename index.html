@@ -105,9 +105,10 @@
 
       .apps-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
         gap: 2rem;
         margin-top: 2rem;
+        justify-content: center;
       }
 
       .app-card {
@@ -118,6 +119,10 @@
         transition: transform 0.3s;
         text-decoration: none;
         color: var(--text-color);
+        cursor: pointer;
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .app-card:hover {
@@ -126,32 +131,36 @@
 
       .app-card-image {
         width: 100%;
-        height: 200px;
+        height: 60%;
         object-fit: cover;
       }
 
       .app-card-content {
-        padding: 1.5rem;
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
       .app-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         margin-bottom: 0.5rem;
         color: var(--primary-color);
       }
 
       .app-card p {
+        font-size: 0.9rem;
         opacity: 0.8;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       .app-card .category {
         display: inline-block;
         background: var(--light-bg);
-        padding: 0.3rem 0.8rem;
+        padding: 0.2rem 0.6rem;
         border-radius: 15px;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
+        font-size: 0.8rem;
       }
 
       .features {
@@ -269,6 +278,78 @@
         cursor: pointer;
       }
 
+      /* App Details Modal */
+      .app-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .app-modal-content {
+        background: white;
+        max-width: 1000px;
+        margin: 2rem auto;
+        border-radius: 15px;
+        position: relative;
+        padding: 2rem;
+      }
+
+      .app-modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--light-bg);
+      }
+
+      .app-modal-close:hover {
+        background: #e1e5ea;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: var(--accent-color);
+        color: white !important;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 1rem;
+        transition: transform 0.2s;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Keep existing styles for features, screenshots, etc. but update link colors */
+      a {
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .contact-info a {
+        color: var(--accent-color);
+      }
+
       @media (max-width: 768px) {
         .hero {
           flex-direction: column;
@@ -298,6 +379,14 @@
           display: block;
           padding: 0.5rem;
         }
+
+        .apps-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+        }
+
+        .app-modal-content {
+          margin: 1rem;
+        }
       }
     </style>
   </head>
@@ -318,125 +407,46 @@
       <div class="container">
         <h2 class="section-title">Our Apps</h2>
         <div class="apps-grid">
-          <a href="#pocket-capital" class="app-card">
+          <div class="app-card" onclick="openAppModal('pocket-capital')">
             <img
               src="PocketCapital/icon.png"
               alt="Pocket Capital Icon"
               class="app-card-image"
             />
             <div class="app-card-content">
-              <span class="category">Business Simulation</span>
-              <h3>Pocket Capital</h3>
-              <p>
-                Build your financial empire through real estate, business
-                management, and stock market trading.
-              </p>
+              <div>
+                <span class="category">Business Simulation</span>
+                <h3>Pocket Capital</h3>
+              </div>
+              <p>Investment Empire Simulator</p>
             </div>
-          </a>
+          </div>
           <!-- Template for future apps -->
           <!--
-          <a href="#future-app" class="app-card">
+          <div class="app-card" onclick="openAppModal('future-app')">
             <img src="FutureApp/icon.png" alt="Future App Icon" class="app-card-image">
             <div class="app-card-content">
-              <span class="category">Category</span>
-              <h3>Future App</h3>
-              <p>Description of the future app goes here.</p>
+              <div>
+                <span class="category">Category</span>
+                <h3>Future App</h3>
+              </div>
+              <p>Short description</p>
             </div>
-          </a>
+          </div>
           -->
         </div>
       </div>
     </section>
 
-    <section class="hero" id="pocket-capital">
-      <div class="container">
-        <div class="hero-content">
-          <img
-            src="PocketCapital/icon.png"
-            alt="Pocket Capital Icon"
-            class="app-icon"
-          />
-          <h2>Pocket Capital</h2>
-          <p>
-            Build your financial empire in this engaging investment simulator.
-            Diversify your portfolio across real estate, businesses, and the
-            stock market!
-          </p>
-          <a href="https://apps.apple.com/app/pocket-capital" class="cta-button"
-            >Download on the App Store</a
-          >
+    <!-- App Details Modal -->
+    <div class="app-modal" id="appModal">
+      <div class="app-modal-content">
+        <span class="app-modal-close" onclick="closeAppModal()">&times;</span>
+        <div id="modalContent">
+          <!-- Content will be dynamically inserted here -->
         </div>
       </div>
-    </section>
-
-    <section class="features">
-      <div class="container">
-        <h2 class="section-title">Key Features</h2>
-        <div class="features-grid">
-          <div class="feature-card">
-            <h3>Real Estate Empire</h3>
-            <p>
-              • Collect rental income in real-time<br />
-              • Renovate properties to increase value<br />
-              • Strategic property management
-            </p>
-          </div>
-          <div class="feature-card">
-            <h3>Business Management</h3>
-            <p>
-              • Run over 10+ various types of business<br />
-              • Boost profits with smart upgrades<br />
-              • Optimize your business operations
-            </p>
-          </div>
-          <div class="feature-card">
-            <h3>Stock Market Trading</h3>
-            <p>
-              • Trade stocks strategically<br />
-              • Watch market movements<br />
-              • Build your portfolio
-            </p>
-          </div>
-          <div class="feature-card">
-            <h3>Engaging Gameplay</h3>
-            <p>
-              • Use boosts to maximize profits<br />
-              • Track investment performance<br />
-              • Play offline - no internet needed
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="screenshots">
-      <div class="container">
-        <h2 class="section-title">Game Screenshots</h2>
-        <div class="screenshot-grid">
-          <div class="screenshot">
-            <img
-              src="PocketCapital/real_estate_view.png"
-              alt="Real Estate Management"
-            />
-          </div>
-          <div class="screenshot">
-            <img
-              src="PocketCapital/business_view.png"
-              alt="Business Management"
-            />
-          </div>
-          <div class="screenshot">
-            <img
-              src="PocketCapital/stocks_view.png"
-              alt="Stock Market Trading"
-            />
-          </div>
-          <div class="screenshot">
-            <img src="PocketCapital/profile_view.png" alt="Player Profile" />
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
     <section class="contact" id="contact">
       <div class="container">
@@ -462,34 +472,107 @@
       </div>
     </footer>
 
-    <!-- Modal for screenshot preview -->
-    <div class="modal" id="screenshotModal">
-      <span class="modal-close">&times;</span>
-      <img class="modal-content" id="modalImage" />
-    </div>
-
     <script>
-      // Screenshot modal functionality
-      const modal = document.getElementById("screenshotModal");
-      const modalImg = document.getElementById("modalImage");
-      const closeBtn = document.getElementsByClassName("modal-close")[0];
+      // App modal functionality
+      const appModal = document.getElementById("appModal");
+      const modalContent = document.getElementById("modalContent");
 
-      document.querySelectorAll(".screenshot img").forEach((img) => {
-        img.onclick = function () {
-          modal.style.display = "flex";
-          modalImg.src = this.src;
-        };
-      });
+      function openAppModal(appId) {
+        if (appId === "pocket-capital") {
+          modalContent.innerHTML = `
+            <div class="hero-content">
+              <img src="PocketCapital/icon.png" alt="Pocket Capital Icon" class="app-icon">
+              <h2>Pocket Capital</h2>
+              <p>Build your financial empire in this engaging investment simulator. Diversify your portfolio across real estate, businesses, and the stock market!</p>
+              <a href="https://apps.apple.com/app/pocket-capital" class="cta-button">Download on the App Store</a>
+            </div>
+            <section class="features">
+              <h2 class="section-title">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-card">
+                  <h3>Real Estate Empire</h3>
+                  <p>• Collect rental income in real-time<br>
+                    • Renovate properties to increase value<br>
+                    • Strategic property management</p>
+                </div>
+                <div class="feature-card">
+                  <h3>Business Management</h3>
+                  <p>• Run over 10+ various types of business<br>
+                    • Boost profits with smart upgrades<br>
+                    • Optimize your business operations</p>
+                </div>
+                <div class="feature-card">
+                  <h3>Stock Market Trading</h3>
+                  <p>• Trade stocks strategically<br>
+                    • Watch market movements<br>
+                    • Build your portfolio</p>
+                </div>
+                <div class="feature-card">
+                  <h3>Engaging Gameplay</h3>
+                  <p>• Use boosts to maximize profits<br>
+                    • Track investment performance<br>
+                    • Play offline - no internet needed</p>
+                </div>
+              </div>
+            </section>
+            <section class="screenshots">
+              <h2 class="section-title">Game Screenshots</h2>
+              <div class="screenshot-grid">
+                <div class="screenshot">
+                  <img src="PocketCapital/real_estate_view.png" alt="Real Estate Management">
+                </div>
+                <div class="screenshot">
+                  <img src="PocketCapital/business_view.png" alt="Business Management">
+                </div>
+                <div class="screenshot">
+                  <img src="PocketCapital/stocks_view.png" alt="Stock Market Trading">
+                </div>
+                <div class="screenshot">
+                  <img src="PocketCapital/profile_view.png" alt="Player Profile">
+                </div>
+              </div>
+            </section>
+          `;
+        }
+        appModal.style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
 
-      closeBtn.onclick = function () {
-        modal.style.display = "none";
-      };
+      function closeAppModal() {
+        appModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
 
       window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+        if (event.target == appModal) {
+          closeAppModal();
         }
       };
+
+      // Screenshot modal functionality
+      document.addEventListener("click", function (e) {
+        if (e.target && e.target.matches(".screenshot img")) {
+          const modal = document.createElement("div");
+          modal.className = "modal";
+          modal.innerHTML = `
+            <span class="modal-close">&times;</span>
+            <img class="modal-content" src="${e.target.src}">
+          `;
+          document.body.appendChild(modal);
+          modal.style.display = "flex";
+
+          const closeBtn = modal.querySelector(".modal-close");
+          closeBtn.onclick = function () {
+            modal.remove();
+          };
+
+          modal.onclick = function (event) {
+            if (event.target === modal) {
+              modal.remove();
+            }
+          };
+        }
+      });
     </script>
   </body>
 </html>
