@@ -307,6 +307,112 @@
         padding: 2rem;
       }
 
+      .modal-hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .modal-hero p {
+        max-width: 600px;
+        margin: 1rem auto;
+      }
+
+      .modal-hero .cta-button {
+        margin: 2rem 0;
+      }
+
+      .modal-features {
+        padding: 2rem 0;
+        background: var(--light-bg);
+        border-radius: 15px;
+        margin: 2rem 0;
+      }
+
+      .modal-features .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+        margin: 2rem auto 0;
+      }
+
+      .screenshots-carousel {
+        position: relative;
+        padding: 2rem 0;
+      }
+
+      .carousel-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        padding: 0 1rem;
+      }
+
+      .carousel-slide img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        z-index: 2;
+      }
+
+      .carousel-button:hover {
+        background: var(--light-bg);
+      }
+
+      .carousel-button.prev {
+        left: 1rem;
+      }
+
+      .carousel-button.next {
+        right: 1rem;
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ccc;
+        cursor: pointer;
+      }
+
+      .carousel-dot.active {
+        background: var(--primary-color);
+      }
+
       .app-modal-close {
         position: absolute;
         top: 1rem;
@@ -403,6 +509,16 @@
         .app-modal-content {
           margin: 1rem;
         }
+
+        .modal-features .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .carousel-button {
+          width: 32px;
+          height: 32px;
+          font-size: 1.2rem;
+        }
       }
     </style>
   </head>
@@ -492,13 +608,14 @@
       function openAppModal(appId) {
         if (appId === "pocket-capital") {
           modalContent.innerHTML = `
-            <div class="hero-content">
+            <div class="modal-hero">
               <img src="PocketCapital/icon.png" alt="Pocket Capital Icon" class="app-icon">
               <h2>Pocket Capital</h2>
               <p>Build your financial empire in this engaging investment simulator. Diversify your portfolio across real estate, businesses, and the stock market!</p>
               <a href="https://apps.apple.com/app/pocket-capital" class="cta-button">Download on the App Store</a>
             </div>
-            <section class="features">
+            
+            <section class="modal-features">
               <h2 class="section-title">Key Features</h2>
               <div class="features-grid">
                 <div class="feature-card">
@@ -527,24 +644,39 @@
                 </div>
               </div>
             </section>
-            <section class="screenshots">
+
+            <section class="screenshots-carousel">
               <h2 class="section-title">Game Screenshots</h2>
-              <div class="screenshot-grid">
-                <div class="screenshot">
-                  <img src="PocketCapital/real_estate_view.png" alt="Real Estate Management">
+              <div class="carousel-container">
+                <button class="carousel-button prev" onclick="moveCarousel(-1)">‹</button>
+                <button class="carousel-button next" onclick="moveCarousel(1)">›</button>
+                <div class="carousel-track">
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/real_estate_view.png" alt="Real Estate Management">
+                  </div>
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/business_view.png" alt="Business Management">
+                  </div>
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/stocks_view.png" alt="Stock Market Trading">
+                  </div>
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/profile_view.png" alt="Player Profile">
+                  </div>
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/business_detail_view.png" alt="Business Details">
+                  </div>
+                  <div class="carousel-slide">
+                    <img src="PocketCapital/achievements.png" alt="Achievements">
+                  </div>
                 </div>
-                <div class="screenshot">
-                  <img src="PocketCapital/business_view.png" alt="Business Management">
-                </div>
-                <div class="screenshot">
-                  <img src="PocketCapital/stocks_view.png" alt="Stock Market Trading">
-                </div>
-                <div class="screenshot">
-                  <img src="PocketCapital/profile_view.png" alt="Player Profile">
-                </div>
+                <div class="carousel-dots"></div>
               </div>
             </section>
           `;
+
+          // Initialize carousel
+          initCarousel();
         }
         appModal.style.display = "block";
         document.body.style.overflow = "hidden";
@@ -585,6 +717,51 @@
           };
         }
       });
+
+      // Carousel functionality
+      let currentSlide = 0;
+      let slideCount = 0;
+
+      function initCarousel() {
+        const track = document.querySelector(".carousel-track");
+        const slides = track.querySelectorAll(".carousel-slide");
+        const dotsContainer = document.querySelector(".carousel-dots");
+
+        slideCount = slides.length;
+
+        // Create dots
+        dotsContainer.innerHTML = "";
+        for (let i = 0; i < slideCount; i++) {
+          const dot = document.createElement("div");
+          dot.className = `carousel-dot${i === 0 ? " active" : ""}`;
+          dot.onclick = () => goToSlide(i);
+          dotsContainer.appendChild(dot);
+        }
+
+        // Set initial position
+        updateCarousel();
+      }
+
+      function moveCarousel(direction) {
+        currentSlide = (currentSlide + direction + slideCount) % slideCount;
+        updateCarousel();
+      }
+
+      function goToSlide(index) {
+        currentSlide = index;
+        updateCarousel();
+      }
+
+      function updateCarousel() {
+        const track = document.querySelector(".carousel-track");
+        const dots = document.querySelectorAll(".carousel-dot");
+
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentSlide);
+        });
+      }
     </script>
   </body>
 </html>
