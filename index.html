@@ -105,7 +105,7 @@
 
       .apps-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, 250px);
+        grid-template-columns: repeat(auto-fit, 280px);
         gap: 2rem;
         margin-top: 2rem;
         justify-content: center;
@@ -113,17 +113,19 @@
 
       .app-card {
         background: white;
-        border-radius: 15px;
+        border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s;
         text-decoration: none;
         color: var(--text-color);
         cursor: pointer;
-        width: 250px;
-        height: 350px;
+        width: 280px;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
 
       .app-card:hover {
@@ -131,30 +133,20 @@
       }
 
       .app-card-image {
+        width: 160px;
+        height: 160px;
+        margin-bottom: 1.5rem;
+      }
+
+      .app-card-image img {
         width: 100%;
-        padding: 2rem;
-        background: linear-gradient(45deg, #2c3e50, #3498db);
+        height: 100%;
+        border-radius: 35px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .app-card-content {
-        padding: 1.5rem;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 0.5rem;
-      }
-
-      .app-card h3 {
-        font-size: 1.5rem;
-        color: var(--primary-color);
-        margin-top: 0.5rem;
-      }
-
-      .app-card p {
-        font-size: 1rem;
-        opacity: 0.8;
-        line-height: 1.4;
+        width: 100%;
       }
 
       .app-card .category {
@@ -163,6 +155,19 @@
         padding: 0.3rem 0.8rem;
         border-radius: 15px;
         font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .app-card h3 {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+      }
+
+      .app-card p {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        line-height: 1.4;
       }
 
       .features {
@@ -383,12 +388,16 @@
         }
 
         .apps-grid {
-          grid-template-columns: repeat(auto-fit, 250px);
+          grid-template-columns: repeat(auto-fit, 280px);
         }
 
         .app-card {
-          width: 250px;
-          height: 350px;
+          width: 280px;
+        }
+
+        .app-card-image {
+          width: 140px;
+          height: 140px;
         }
 
         .app-modal-content {
@@ -416,31 +425,24 @@
         <div class="apps-grid">
           <div class="app-card" onclick="openAppModal('pocket-capital')">
             <div class="app-card-image">
-              <img
-                src="PocketCapital/icon.png"
-                alt="Pocket Capital Icon"
-                style="width: 100%; height: auto"
-              />
+              <img src="PocketCapital/icon.png" alt="Pocket Capital Icon" />
             </div>
             <div class="app-card-content">
               <span class="category">Business Simulation</span>
               <h3>Pocket Capital</h3>
-              <p>
-                Build your financial empire through real estate, business
-                management, and stock market trading.
-              </p>
+              <p>Investment Empire Simulator</p>
             </div>
           </div>
           <!-- Template for future apps -->
           <!--
           <div class="app-card" onclick="openAppModal('future-app')">
             <div class="app-card-image">
-              <img src="FutureApp/icon.png" alt="Future App Icon" style="width: 100%; height: auto;">
+              <img src="FutureApp/icon.png" alt="Future App Icon">
             </div>
             <div class="app-card-content">
               <span class="category">Category</span>
               <h3>Future App</h3>
-              <p>Description of the future app goes here with more details about what it does.</p>
+              <p>Coming Soon</p>
             </div>
           </div>
           -->
