@@ -557,41 +557,18 @@
 
     <section class="our-apps" id="our-apps">
       <div class="container">
-        <h2 class="section-title">Our Apps</h2>
-        <div class="apps-grid">
-          <div class="app-card" onclick="openAppModal('pocket-capital')">
-            <div class="app-card-image">
-              <img src="PocketCapital/icon.png" alt="Pocket Capital Icon" />
-            </div>
-            <div class="app-card-content">
-              <span class="category">Business Simulation</span>
-              <h3>Pocket Capital</h3>
-              <p>Investment Empire Simulator</p>
-            </div>
-          </div>
-          <!-- Template for future apps -->
-          <!--
-          <div class="app-card" onclick="openAppModal('future-app')">
-            <div class="app-card-image">
-              <img src="FutureApp/icon.png" alt="Future App Icon">
-            </div>
-            <div class="app-card-content">
-              <span class="category">Category</span>
-              <h3>Future App</h3>
-              <p>Coming Soon</p>
-            </div>
-          </div>
-          -->
+        <h2>Our Apps</h2>
+        <div class="apps-grid" id="appsGrid">
+          <!-- Apps will be rendered here dynamically -->
         </div>
       </div>
     </section>
 
-    <!-- App Details Modal -->
-    <div class="app-modal" id="appModal">
-      <div class="app-modal-content">
-        <span class="app-modal-close" onclick="closeAppModal()">&times;</span>
+    <div id="appModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeAppModal()">&times;</span>
         <div id="modalContent">
-          <!-- Content will be dynamically inserted here -->
+          <!-- Modal content will be rendered here dynamically -->
         </div>
       </div>
     </div>
@@ -620,199 +597,24 @@
       </div>
     </footer>
 
+    <!-- App Data -->
+    <script src="PocketCapital/app.js"></script>
+
+    <!-- App Renderer -->
+    <script src="js/app-renderer.js"></script>
+
+    <!-- Initialize Apps -->
     <script>
-      // App modal functionality
-      const appModal = document.getElementById("appModal");
-      const modalContent = document.getElementById("modalContent");
+      document.addEventListener("DOMContentLoaded", function () {
+        const appsGrid = document.getElementById("appsGrid");
 
-      function openAppModal(appId) {
-        if (appId === "pocket-capital") {
-          modalContent.innerHTML = `
-            <div class="modal-hero">
-              <img src="PocketCapital/icon.png" alt="Pocket Capital Icon" class="app-icon">
-              <h2>Pocket Capital</h2>
-              <p>Build your financial empire in this engaging investment simulator. Diversify your portfolio across real estate, businesses, and the stock market!</p>
-              <a href="https://apps.apple.com/app/pocket-capital" class="cta-button">Download on the App Store</a>
-            </div>
-            
-            <section class="modal-features">
-              <h2 class="section-title">Key Features</h2>
-              <div class="features-grid">
-                <div class="feature-card">
-                  <h3>Real Estate Empire</h3>
-                  <p>• Collect rental income in real-time<br>
-                    • Renovate properties to increase value<br>
-                    • Strategic property management</p>
-                </div>
-                <div class="feature-card">
-                  <h3>Business Management</h3>
-                  <p>• Run over 10+ various types of business<br>
-                    • Boost profits with smart upgrades<br>
-                    • Optimize your business operations</p>
-                </div>
-                <div class="feature-card">
-                  <h3>Stock Market Trading</h3>
-                  <p>• Trade stocks strategically<br>
-                    • Watch market movements<br>
-                    • Build your portfolio</p>
-                </div>
-                <div class="feature-card">
-                  <h3>Engaging Gameplay</h3>
-                  <p>• Use boosts to maximize profits<br>
-                    • Track investment performance<br>
-                    • Play offline - no internet needed</p>
-                </div>
-              </div>
-            </section>
-
-            <section class="screenshots-carousel">
-              <h2 class="section-title">Screenshots</h2>
-              <div class="carousel-container">
-                <button class="carousel-button prev" onclick="moveCarousel(-1)">‹</button>
-                <button class="carousel-button next" onclick="moveCarousel(1)">›</button>
-                <div class="carousel-track">
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/real_estate_view.png" alt="Real Estate Management">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/business_view.png" alt="Business Overview">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/stocks_view.png" alt="Stock Market Trading">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/business_detail_view.png" alt="Business Details">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/new_business.png" alt="Start New Business">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/profile_view.png" alt="Player Profile">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/stock_trade_sheet.png" alt="Stock Trading Sheet">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/sell_confirmed.png" alt="Trade Confirmation">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/earn_view.png" alt="Earnings Overview">
-                  </div>
-                  <div class="carousel-slide">
-                    <img src="PocketCapital/achievements.png" alt="Game Achievements">
-                  </div>
-                </div>
-                <div class="carousel-dots"></div>
-              </div>
-            </section>
-          `;
-
-          // Initialize carousel
-          initCarousel();
+        // Render Pocket Capital
+        if (typeof pocketCapital !== "undefined") {
+          appsGrid.innerHTML += renderAppCard(pocketCapital);
         }
-        appModal.style.display = "block";
-        document.body.style.overflow = "hidden";
-      }
 
-      function closeAppModal() {
-        appModal.style.display = "none";
-        document.body.style.overflow = "auto";
-      }
-
-      window.onclick = function (event) {
-        if (event.target == appModal) {
-          closeAppModal();
-        }
-      };
-
-      // Screenshot modal functionality
-      document.addEventListener("click", function (e) {
-        if (e.target && e.target.matches(".screenshot img")) {
-          const modal = document.createElement("div");
-          modal.className = "modal";
-          modal.innerHTML = `
-            <span class="modal-close">&times;</span>
-            <img class="modal-content" src="${e.target.src}">
-          `;
-          document.body.appendChild(modal);
-          modal.style.display = "flex";
-
-          const closeBtn = modal.querySelector(".modal-close");
-          closeBtn.onclick = function () {
-            modal.remove();
-          };
-
-          modal.onclick = function (event) {
-            if (event.target === modal) {
-              modal.remove();
-            }
-          };
-        }
+        // Add more apps here as they become available
       });
-
-      // Carousel functionality
-      let currentSlide = 0;
-      let slideCount = 0;
-
-      function initCarousel() {
-        const track = document.querySelector(".carousel-track");
-        const slides = track.querySelectorAll(".carousel-slide");
-        const dotsContainer = document.querySelector(".carousel-dots");
-
-        slideCount = slides.length;
-
-        // Create dots
-        dotsContainer.innerHTML = "";
-        for (let i = 0; i < slideCount; i++) {
-          const dot = document.createElement("div");
-          dot.className = `carousel-dot${i === 0 ? " active" : ""}`;
-          dot.onclick = () => goToSlide(i);
-          dotsContainer.appendChild(dot);
-        }
-
-        // Set initial position
-        updateCarousel();
-      }
-
-      function updateCarousel() {
-        const track = document.querySelector(".carousel-track");
-        const dots = document.querySelectorAll(".carousel-dot");
-        const slideWidth = 33.333; // Show 3 slides at a time
-        const maxSlides = Math.ceil(slideCount / 3) * 3; // Round up to nearest multiple of 3
-        const lastSetIndex = Math.floor((slideCount - 3) / 3) * 3; // Last valid starting index
-
-        // Prevent scrolling past the last complete set
-        if (currentSlide > lastSetIndex) {
-          currentSlide = lastSetIndex;
-        }
-
-        track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
-
-        dots.forEach((dot, index) => {
-          dot.classList.toggle("active", index === currentSlide);
-        });
-      }
-
-      function moveCarousel(direction) {
-        const lastSetIndex = Math.floor((slideCount - 3) / 3) * 3; // Last valid starting index
-
-        currentSlide = currentSlide + direction * 3; // Move 3 slides at a time
-
-        // Handle bounds
-        if (currentSlide < 0) {
-          currentSlide = lastSetIndex;
-        } else if (currentSlide > lastSetIndex) {
-          currentSlide = 0;
-        }
-
-        updateCarousel();
-      }
-
-      function goToSlide(index) {
-        // Round to nearest multiple of 3 to maintain alignment
-        currentSlide = Math.floor(index / 3) * 3;
-        updateCarousel();
-      }
     </script>
   </body>
 </html>
