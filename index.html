@@ -1,1 +1,207 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pocket Capital - Investment Empire Simulator</title>
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --accent-color: #27ae60;
+        --text-color: #333;
+        --light-bg: #f5f6fa;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: var(--primary-color);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: var(--accent-color);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 2rem;
+        transition: transform 0.2s;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .features {
+        padding: 4rem 0;
+        background: var(--light-bg);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .contact {
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .contact-info {
+        margin-top: 2rem;
+      }
+
+      footer {
+        background: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container hero">
+        <h1>Pocket Capital</h1>
+        <p>
+          Build your financial empire in this engaging investment simulator.
+          Diversify your portfolio across real estate, businesses, and the stock
+          market!
+        </p>
+        <a href="https://apps.apple.com/app/pocket-capital" class="cta-button"
+          >Download on the App Store</a
+        >
+      </div>
+    </header>
+
+    <section class="features">
+      <div class="container">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Real Estate Empire</h3>
+            <p>
+              • Collect rental income in real-time<br />
+              • Renovate properties to increase value<br />
+              • Strategic property management
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Business Management</h3>
+            <p>
+              • Run over 10+ various types of business<br />
+              • Boost profits with smart upgrades<br />
+              • Optimize your business operations
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Stock Market Trading</h3>
+            <p>
+              • Trade stocks strategically<br />
+              • Watch market movements<br />
+              • Build your portfolio
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Engaging Gameplay</h3>
+            <p>
+              • Use boosts to maximize profits<br />
+              • Track investment performance<br />
+              • Play offline - no internet needed
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="container">
+        <h2 class="section-title">Contact & Support</h2>
+        <div class="contact-info">
+          <p>Have questions or need assistance? We're here to help!</p>
+          <p>
+            Email:
+            <a href="mailto:support@pocketcapital.com"
+              >support@pocketcapital.com</a
+            >
+          </p>
+          <p>Follow us on social media for updates and tips:</p>
+          <div class="social-links">
+            <a href="https://twitter.com/pocketcapital">Twitter</a> |
+            <a href="https://instagram.com/pocketcapital">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Pocket Capital. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
