@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rundro Apps - Mobile Game Development</title>
+    <title>Rundro Apps</title>
     <style>
       :root {
         --primary-color: #2c3e50;
@@ -569,6 +569,16 @@
               <p>Investment Empire Simulator</p>
             </div>
           </div>
+          <div class="app-card" onclick="openAppModal('ducky-race')">
+            <div class="app-card-image">
+              <img src="DuckyRace/duck.png" alt="Ducky Race Icon" />
+            </div>
+            <div class="app-card-content">
+              <span class="category">Web App</span>
+              <h3>🦆 Ducky Race</h3>
+              <p>Create and share exciting duck races</p>
+            </div>
+          </div>
           <!-- Template for future apps -->
           <!--
           <div class="app-card" onclick="openAppModal('future-app')">
@@ -629,6 +639,20 @@
         if (appId === "pocket-capital") {
           // Load app details from the app's directory
           fetch(`PocketCapital/app-details.html`)
+            .then((response) => response.text())
+            .then((html) => {
+              modalContent.innerHTML = html;
+              // Initialize carousel after content is loaded
+              initCarousel();
+            })
+            .catch((error) => {
+              console.error("Error loading app details:", error);
+              modalContent.innerHTML =
+                "<p>Error loading app details. Please try again later.</p>";
+            });
+        } else if (appId === "ducky-race") {
+          // Load app details from the app's directory
+          fetch(`DuckyRace/app-details.html`)
             .then((response) => response.text())
             .then((html) => {
               modalContent.innerHTML = html;
