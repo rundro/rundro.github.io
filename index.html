@@ -579,6 +579,19 @@
               <p>Create and share exciting duck races</p>
             </div>
           </div>
+          <div class="app-card" onclick="openAppModal('fire-tv-remote')">
+            <div class="app-card-image">
+              <img
+                src="FireTvRemote/remote_icon.png"
+                alt="Fire TV Remote Icon"
+              />
+            </div>
+            <div class="app-card-content">
+              <span class="category">Web App</span>
+              <h3>📺 Fire TV Remote</h3>
+              <p>Web-based remote control for Fire TV</p>
+            </div>
+          </div>
           <!-- Template for future apps -->
           <!--
           <div class="app-card" onclick="openAppModal('future-app')">
@@ -653,6 +666,20 @@
         } else if (appId === "ducky-race") {
           // Load app details from the app's directory
           fetch(`DuckyRace/app-details.html`)
+            .then((response) => response.text())
+            .then((html) => {
+              modalContent.innerHTML = html;
+              // Initialize carousel after content is loaded
+              initCarousel();
+            })
+            .catch((error) => {
+              console.error("Error loading app details:", error);
+              modalContent.innerHTML =
+                "<p>Error loading app details. Please try again later.</p>";
+            });
+        } else if (appId === "fire-tv-remote") {
+          // Load app details from the app's directory
+          fetch(`FireTvRemote/app-details.html`)
             .then((response) => response.text())
             .then((html) => {
               modalContent.innerHTML = html;
